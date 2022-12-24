@@ -44,4 +44,18 @@ h1{
     color: floralwhite;
 
 }
+@media screen and (max-width: 320px){
 
+	.christmas-letter{
+		float: none;
+		width: auto;
+		margin-right: 0;
+		margin-left: 0;
+	}
+	h1{
+	
+	font-family: 'Mountains of Christmas';
+	font-size: 45px;
+	text-align: center;
+	}
+}
