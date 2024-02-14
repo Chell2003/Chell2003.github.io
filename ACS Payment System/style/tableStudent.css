@@ -1,0 +1,124 @@
+/* Add this CSS to your style/header.css file or create a new CSS file and link it */
+.table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+
+.table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.table th {
+    background-color: darkred;
+    border: 1px solid black;
+    padding: 8px;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: #f0eded;
+
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;  
+}
+
+.btn-primary {
+    color: white;
+    background-color: darkred;
+    border-color: white;
+}
+
+.btn-primary:hover {
+    background-color: #fac802;
+    border-color: black;
+    color: black;
+}
+.add {
+    color: white;
+    background-color: darkred;
+    border-color: white;
+    margin-left:963px;
+    height: 40px;
+    padding-top: 10px ;
+    
+}
+.add:hover {
+    background-color: #fac802;
+    border-color: black;
+    color: black;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    border: 1px solid;
+    width: 382px;
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.search-container .add {
+        z-index: 1;
+    }
+
+label {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 7.5px;
+}
+
+#search {
+    padding: 10px;
+    border: 0px solid white;
+
+}
+.formsearch{
+    display: flex;
+}
+input{
+    border-radius: 5px;
+    width: 300px;
+    border: none;
+    outline: none;
+}
+
+.container_my-5 {
+     display: flex;
+}
+.year-section-list {
+    width: 20%;
+}
+.year-section-list table {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+.student-list {
+        width: 80%;
+    padding-top: 66px; /* Add padding to the top */
+    margin-left: -20px;
+}

@@ -1,0 +1,109 @@
+/* Add this to your style/tablePayment.css file */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    align-items: center;
+
+}
+
+.table th, .table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+
+.table th {
+    background-color: darkred;
+    color: white;
+}
+
+/* Style for alternating row colors */
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style for "Add Payment" button */
+.btn.add {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: darkred;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    border-color: white;
+}
+
+.btn.add:hover {
+    background-color:#fac802;
+    color: black;
+    border-color: black;
+}
+.container_my-5{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.btn-sm{
+    color:darkred;
+    font-size: 25px;
+    
+    text-align: center;
+}
+.btn-sm:hover{
+    color: #fac802;
+}
+.btn-payment form{
+    display: flex;
+}
+.btn-payment{
+    border: 1px solid black;
+    background-color: #ddd;
+    border-radius: 5px;
+    width: 385px;
+    height: 43px;
+}
+.btn-payment2{
+    display: flex;
+    justify-content: space-between;
+}
+.btn-payment input{
+    height: 40px;
+    width: 300px;
+    border: 0px solid white;
+    outline: none;
+    border-radius: 5px;
+}
+.btn-payment label{
+    padding-top: 9px;
+    padding-left: 10px;
+}
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-size: 12px;
+    text-decoration: none;
+    background-color: #fac802;
+    color: #000000;
+    border-radius: 5px;
+}
+
+.pagination a:hover {
+    background-color: darkred;
+}
+
+.pagination .disabled {
+    color: #aaa;
+    pointer-events: none;
+    cursor: default;
+}

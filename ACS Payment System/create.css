@@ -1,0 +1,89 @@
+/* Add this CSS to your existing code */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    
+}
+
+h2 {
+    color: #333;
+}
+
+.alert {
+    margin-top: 15px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    width: calc(100% - 5px); /* Adjusted width to accommodate for padding and border */
+    margin-bottom: 15px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Updated button styles */
+.btn-primary,
+.btn-outline-primary {
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary {
+    background-color: #337ab7;
+    border: none;
+    border-radius: 4px;
+    padding: 11px 22px;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-primary {
+    color: #337ab7;
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    padding: 8.3px 16.6px;
+    margin-left: 10px;
+
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #337ab7;
+}
+.mb-2{
+    display: flex;
+}
