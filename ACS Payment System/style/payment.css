@@ -107,3 +107,12 @@
     pointer-events: none;
     cursor: default;
 }
+.list1{
+    display: flex;
+    width: 100%;
+}
+.listnum{
+    width: 90%;
+    max-height: 530px; /* Set the maximum height as per your requirement */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
