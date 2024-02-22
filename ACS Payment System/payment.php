@@ -13,22 +13,21 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-// Modify the SQL query based on the search input and pagination
+// Retrieve the selected year and section from the URL
+$yearSection = isset($_GET['yearsection']) ? $_GET['yearsection'] : '';
+
+// Modify the SQL query based on the search input, year, and section
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
-if (!empty($search)) {
-    $sql = "SELECT payments.id, payments.amount_paid, payments.payment_date, clients.Student_Num, clients.name 
-            FROM payments
-            INNER JOIN clients ON payments.student_id = clients.id
-            WHERE clients.name LIKE '%$search%' OR clients.Student_Num LIKE '%$search%'
-            LIMIT " . (($currentPage - 1) * 10) . ", 10";
-} else {
-    $sql = "SELECT payments.id, payments.amount_paid, payments.payment_date, clients.Student_Num, clients.name 
-            FROM payments
-            INNER JOIN clients ON payments.student_id = clients.id
-            LIMIT " . (($currentPage - 1) * 10) . ", 10";
-}
+$condition = (!empty($search)) ? "AND (clients.name LIKE '%$search%' OR clients.Student_Num LIKE '%$search%')" : "";
+$yearSectionCondition = (!empty($yearSection)) ? "AND clients.yearandsection = '$yearSection'" : "";
+
+$sql = "SELECT payments.id, payments.amount_paid, payments.payment_date, clients.Student_Num, clients.name 
+        FROM payments
+        INNER JOIN clients ON payments.student_id = clients.id
+        WHERE 1 $condition $yearSectionCondition
+        LIMIT " . (($currentPage - 1) * 10) . ", 10";
 
 $result = $connection->query($sql);
 
@@ -54,15 +53,29 @@ if (!$result) {
                         <!-- Button to open the Add Payment Modal -->
                         <div class="btn-payment2">
                             <div class="btn-payment">
-                            <form method="get" action="" id="searchForm" class="formsearch">
-                                <label for="search">Search:</label>
-                                <input type="text" id="search" name="search" placeholder="Enter student name or number">
-                            </form>
+                                <form method="get" action="" id="searchForm" class="formsearch">
+                                    <label for="search">Search:</label>
+                                    <input type="text" id="search" name="search" placeholder="Enter student name or number">
+                                </form>
                             </div>
                             <div class="btn-payment1">
-                            <a class="btn add" onclick="openModal()" role="button">Add</a>
+                                <a class="btn add" onclick="openModal()" role="button">Add</a>
                             </div>
                         </div>
+                    <div class="list1">
+                        <!-- Buttons for each section -->
+                        <div class="year-section-list">
+                            <?php
+                            $sqlSections = "SELECT DISTINCT yearandsection FROM clients ORDER BY yearandsection ASC";
+                            $resultSections = $connection->query($sqlSections);
+                            
+                            while ($rowSection = $resultSections->fetch_assoc()) {
+                                $section = $rowSection['yearandsection'];
+                                echo "<button class='btn-section'><a class='section' href='payment.php?yearsection=$section'>$section</a></button>";
+                            }
+                            ?>
+                        </div>
+                        <div class="listnum">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -76,44 +89,46 @@ if (!$result) {
                             </thead>
                             <tbody>
                                 <?php
-                                    // Output payment information in reverse order
-                                    $payments = array();
-                                    while ($row = $result->fetch_assoc()) {
-                                        $payments[] = $row;
-                                    }
+                                // Output payment information in reverse order
+                                $payments = array();
+                                while ($row = $result->fetch_assoc()) {
+                                    $payments[] = $row;
+                                }
 
-                                    // Reverse the array to display the latest payment first
-                                    $payments = array_reverse($payments);
+                                // Reverse the array to display the latest payment first
+                                $payments = array_reverse($payments);
 
-                                    foreach ($payments as $row) {
-                                        echo "
-                                        <tr>
-                                            <td>{$row['Student_Num']}</td>
-                                            <td>{$row['name']}</td>
-                                            <td> ₱" . calculateBalance($row['amount_paid']) . "</td>
-                                            <td>₱{$row['amount_paid']}</td>
-                                            <td>{$row['payment_date']}</td>
-                                            <td>
-                                                <a class='btn btn-primary btn-sm' href='edit_payment.php?id={$row['id']}'><i class='bx bxs-edit-alt'></i></a>
-                                                <a class='btn btn-danger btn-sm' href='delete_payment.php?id={$row['id']}'><i class='bx bx-trash'></i></a>
-                                                <a class='btn btn-info btn-sm' href='receipt.php?id={$row['id']}'><i class='bx bxs-receipt' ></i></a>
-                                            </td>
-                                        </tr>
-                                        ";
-                                    }
+                                foreach ($payments as $row) {
+                                    echo "
+                                    <tr>
+                                        <td>{$row['Student_Num']}</td>
+                                        <td>{$row['name']}</td>
+                                        <td> ₱" . calculateBalance($row['amount_paid']) . "</td>
+                                        <td>₱{$row['amount_paid']}</td>
+                                        <td>{$row['payment_date']}</td>
+                                        <td>
+                                            <a class='btn btn-primary btn-sm' href='edit_payment.php?id={$row['id']}'><i class='bx bxs-edit-alt'></i></a>
+                                            <a class='btn btn-danger btn-sm' href='delete_payment.php?id={$row['id']}'><i class='bx bx-trash'></i></a>
+                                            <a class='btn btn-info btn-sm' href='receipt.php?id={$row['id']}'><i class='bx bxs-receipt' ></i></a>
+                                        </td>
+                                    </tr>
+                                    ";
+                                }
 
-                                    // Function to calculate balance
-                                    function calculateBalance($amountPaid) {
-                                        // Implement your logic to calculate balance here
-                                        // For example, deducting the paid amount from the total balance
-                                        $totalBalance = 120; // Replace with the actual total balance
-                                        $balance = $totalBalance - $amountPaid;
-                                        return $balance;
-                                    }
-                                     ?>
+                                // Function to calculate balance
+                                function calculateBalance($amountPaid) {
+                                    // Implement your logic to calculate balance here
+                                    // For example, deducting the paid amount from the total balance
+                                    $totalBalance = 100; // Replace with the actual total balance
+                                    $balance = $totalBalance - $amountPaid;
+                                    return $balance;
+                                }
+                                ?>
 
                             </tbody>
                         </table>
+                        </div>
+                    </div>
 
                         <div class="pagination">
                             <?php
@@ -135,7 +150,7 @@ if (!$result) {
                 </div>
             </div>
         </div>
-    </div>      
+    </div>
 </div>
 
 <!-- Add Payment Modal Content -->
@@ -185,7 +200,7 @@ if (!$result) {
     }
 
     // Automatically submit the search form on Enter key press
-    document.getElementById('search').addEventListener('keyup', function(event) {
+    document.getElementById('search').addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {
             document.getElementById('searchForm').submit();
         }
